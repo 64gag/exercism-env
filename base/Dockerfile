@@ -27,3 +27,9 @@ RUN wget "https://github.com/exercism/cli/releases/download/v3.0.13/exercism-3.0
 RUN tar -xf "exercism-3.0.13-linux-x86_64.tar.gz"
 RUN mv exercism /usr/bin/
 RUN rm -r /tmp/exercism
+WORKDIR /
+
+RUN apt-get update \
+    && apt-get install -y vim git tree \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
