@@ -11,12 +11,11 @@ help:
 
 .PHONY: build
 build:
-	cd base && $(MAKE) $@
-	cd java && $(MAKE) $@
-	cd c && $(MAKE) $@
+	docker image build \
+		--file Dockerfile \
+		--tag 64gag/exercism-venv-c \
+		.
 
 .PHONY: clean
 clean:
-	cd base && $(MAKE) $@
-	cd java && $(MAKE) $@
-	cd c && $(MAKE) $@
+	-docker image rm 64gag/exercism-venv-c
