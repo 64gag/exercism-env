@@ -1,3 +1,5 @@
+DOCKER_IMAGE_NAME=64gag/exercism-venv-cpp
+
 all: help
 
 .PHONY: help
@@ -12,21 +14,15 @@ help:
 
 .PHONY: build
 build:
-	cd base && $(MAKE) $@
-	cd java && $(MAKE) $@
-	cd c && $(MAKE) $@
-	cd cpp && $(MAKE) $@
+	docker image build \
+		--file Dockerfile \
+		--tag "$(DOCKER_IMAGE_NAME)" \
+		.
 
 .PHONY: clean
 clean:
-	cd base && $(MAKE) $@
-	cd java && $(MAKE) $@
-	cd c && $(MAKE) $@
-	cd cpp && $(MAKE) $@
+	-docker image rm "$(DOCKER_IMAGE_NAME)"
 
 .PHONY: push
 push: build
-	cd base && $(MAKE) $@
-	cd java && $(MAKE) $@
-	cd c && $(MAKE) $@
-	cd cpp && $(MAKE) $@
+	docker image push "$(DOCKER_IMAGE_NAME)"
